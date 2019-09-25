@@ -1,0 +1,29 @@
+{
+  "name": "blog-list",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tooeasyturan/blog-list.git"
+  },
+  "author": "Josh Turan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tooeasyturan/blog-list/issues"
+  },
+  "homepage": "https://github.com/tooeasyturan/blog-list#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
+  }
+}
