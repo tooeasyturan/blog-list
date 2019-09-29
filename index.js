@@ -5,6 +5,12 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+
+const url =
+  `mongodb+srv://bloglist:homestead@cluster0-fs5mi.mongodb.net/bloglist?retryWrites=true&w=majority`
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+
 const blogSchema = mongoose.Schema({
   title: String,
   author: String,
@@ -13,9 +19,6 @@ const blogSchema = mongoose.Schema({
 })
 
 const Blog = mongoose.model('Blog', blogSchema)
-
-const mongoUrl = 'mongodb://localhost/bloglist'
-mongoose.connect(mongoUrl, { useNewUrlParser: true })
 
 app.use(cors())
 app.use(bodyParser.json())
