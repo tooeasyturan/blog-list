@@ -29,10 +29,6 @@ const blog = new Blog({
   likes: 294000,
 })
 
-// blog.save().then(response => {
-//   console.log('note saved!')
-//   mongoose.connection.close()
-// })
 
 Blog.find({}).then(result => {
   result.forEach(blog => {

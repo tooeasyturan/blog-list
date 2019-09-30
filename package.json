@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/tooeasyturan/blog-list#readme",
   "devDependencies": {
+    "jest": "^24.9.0",
     "nodemon": "^1.19.2"
   },
   "dependencies": {
