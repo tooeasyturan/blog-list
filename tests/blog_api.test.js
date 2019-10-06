@@ -119,8 +119,61 @@ test('HTTP POST request to /api/blogs url successful', async () => {
   const ids = response.body.map(r => r.id)
   expect(ids.length).toBe(initialBlogs.length + 1)
 
-  const contents = response.body.map(r => r.title)
-  expect(contents).toContain('This is a jest test')
+  const titles = response.body.map(r => r.title)
+  expect(titles).toContain('This is a jest test')
+})
+
+test('if likes property is missing default to 0', async () => {
+  const newBlog = {
+    title: 'This is a jest test',
+    author: 'Josh Turan',
+    url: 'http://www.testurl.com',
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+
+  const lastBlog = response.body[response.body.length - 1]
+  console.log(lastBlog)
+
+  expect(lastBlog.likes).toEqual(0)
+})
+
+test('Blog without title is not added', async () => {
+  const newBlog = {
+    author: 'Josh Turan',
+    url: 'www.testurl.com',
+    likes: 100
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  // const response = await api.get('/api/blogs')
+  // expect(response.body.length).toBe(initialBlogs.length)
+})
+
+test('Blog without url is not added', async () => {
+  const newBlog = {
+    title: 'This is a test',
+    author: 'Josh Turan',
+    likes: 100
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  // const response = await api.get('/api/blogs')
+  // expect(response.body.length).toBe(initialBlogs.length)
 })
 
 
