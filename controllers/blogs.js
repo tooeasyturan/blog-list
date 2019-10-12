@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 blogsRouter.get('/', (request, response) => {
   Blog
@@ -18,7 +19,7 @@ blogsRouter.get('/:id', async (request, response) => {
   }
 })
 
-blogsRouter.post('/', async (request, response) => {
+blogsRouter.post('/', async (request, response, next) => {
 
   const body = request.body
 
@@ -28,24 +29,26 @@ blogsRouter.post('/', async (request, response) => {
     return response.status(400).json({ error: 'url missing' })
   }
 
+  try {
+    const blog = new Blog(body)
 
-  const blog = new Blog(body)
-
-  // const blog = new Blog({
-  //   title: body.title,
-  //   author: body.author,
-  //   url: body.url,
-  //   likes: body.likes
-  // })
+    // const blog = new Blog({
+    //   title: body.title,
+    //   author: body.author,
+    //   url: body.url,
+    //   likes: body.likes
+    // })
 
 
-  if (body.likes === undefined) {
-    blog.likes = 0
+    if (body.likes === undefined) {
+      blog.likes = 0
+    }
+
+    const savedBlog = await blog.save()
+    response.json(savedBlog.toJSON())
+  } catch (exception) {
+    next(exception)
   }
-
-  const savedBlog = await blog.save()
-  response.json(savedBlog.toJSON())
-
 
   // const blog = new Blog(request.body)
 
@@ -65,9 +68,6 @@ blogsRouter.put('/:id', (request, response) => {
   const body = request.body
 
   const blog = {
-    title: body.title,
-    author: body.author,
-    url: body.url,
     likes: body.likes
   }
 
